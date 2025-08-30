@@ -7,6 +7,19 @@ jsonGeneratorScript = "PromptGenerator.py"
 imageGeneratorScript = "Generator.py"
 a1111LauncherScript = r"C:\Users\Mauricio\Escritorio\AI\webui-user_READY.lnk"
 
+CONFIG_FILE = "config.txt"
+
+def load_config(filename):
+    settings = {}
+    with open(filename, "r") as f:
+        for line in f:
+            if "=" in line:
+                key, value = line.strip().split("=", 1)
+                settings[key.strip()] = value.strip()
+    return settings
+
+settings = load_config(CONFIG_FILE)
+
 # Function to run another python script
 def run_script(script_name):
     # sys.executable ensures you use the same Python interpreter
@@ -27,14 +40,20 @@ root.title("Script Launcher")
 root.geometry("300x200")
 
 # Add buttons
-btn1 = tk.Button(root, text="Init api", command=lambda: run_shortcut(f"{a1111LauncherScript}"))
-btn1.pack(pady=10)
+frame = tk.Frame(root)
+frame.pack(pady=20)
 
-btn2 = tk.Button(root, text="Generate", command=lambda: run_script(f"{jsonGeneratorScript}"))
-btn2.pack(pady=10)
+if "script1" in settings:
+    btn1 = tk.Button(frame, text="Run Script 1", command=lambda: run_python(settings["script1"]))
+    btn1.pack(pady=5, fill="x")
 
-btn3 = tk.Button(root, text="Run", command=lambda: run_script(f"{imageGeneratorScript}"))
-btn3.pack(pady=10)
+if "script2" in settings:
+    btn2 = tk.Button(frame, text="Run Script 2", command=lambda: run_python(settings["script2"]))
+    btn2.pack(pady=5, fill="x")
+
+if "shortcut" in settings:
+    btn3 = tk.Button(frame, text="Run Shortcut", command=lambda: run_shortcut(settings["shortcut"]))
+    btn3.pack(pady=5, fill="x")
 
 
 
