@@ -18,7 +18,9 @@ if not prompts:
     exit(1)
 
 # Create a main batch folder with datetime
-batch_folder = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+outputsFolder = "Output/"
+BatchName = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+batch_folder = f"{outputsFolder}{BatchName}"
 os.makedirs(batch_folder, exist_ok=True)
 
 for idx, prompt_data in enumerate(prompts, start=1):
