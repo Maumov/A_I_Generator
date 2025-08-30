@@ -3,10 +3,6 @@ import subprocess
 import sys
 import os
 
-jsonGeneratorScript = "PromptGenerator.py"
-imageGeneratorScript = "Generator.py"
-a1111LauncherScript = r"C:\Users\Mauricio\Escritorio\AI\webui-user_READY.lnk"
-
 CONFIG_FILE = "config.txt"
 
 def load_config(filename):
@@ -42,18 +38,19 @@ root.geometry("300x200")
 # Add buttons
 frame = tk.Frame(root)
 frame.pack(pady=20)
-
-if "script1" in settings:
-    btn1 = tk.Button(frame, text="Run Script 1", command=lambda: run_python(settings["script1"]))
+if "a1111LauncherScript" in settings:
+    btn1 = tk.Button(frame, text="Run Shortcut", command=lambda: run_shortcut(settings["a1111LauncherScript"]))
     btn1.pack(pady=5, fill="x")
-
-if "script2" in settings:
-    btn2 = tk.Button(frame, text="Run Script 2", command=lambda: run_python(settings["script2"]))
+    
+if "jsonGeneratorScript" in settings:
+    btn2 = tk.Button(frame, text="Generate prompts", command=lambda: run_python(settings["jsonGeneratorScript"]))
     btn2.pack(pady=5, fill="x")
 
-if "shortcut" in settings:
-    btn3 = tk.Button(frame, text="Run Shortcut", command=lambda: run_shortcut(settings["shortcut"]))
+if "imageGeneratorScript" in settings:
+    btn3 = tk.Button(frame, text="Generate Images", command=lambda: run_python(settings["imageGeneratorScript"]))
     btn3.pack(pady=5, fill="x")
+
+
 
 
 
