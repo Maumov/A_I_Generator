@@ -3,7 +3,7 @@ from itertools import product
 import csv
 import json
 
-STRINGS_FILE = "prompt_config.txt" # CSV-style: Name="opt1","opt2","opt, with comma"  
+STRINGS_FILE = "prompt_strings.txt" # CSV-style: Name="opt1","opt2","opt, with comma"  
 SETTINGS_FILE = "prompt_settings.txt" # key=value lines (supports ints/floats/strings) 
 OUTPUT_FILE = "prompts.json"
 
