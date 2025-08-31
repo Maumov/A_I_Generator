@@ -144,6 +144,8 @@ for i, (set_name, items) in enumerate(string_sets):
     lb = tk.Listbox(group, selectmode=tk.MULTIPLE, height=8, exportselection=False)
     for item in items:
         lb.insert(tk.END, item)
+
+    lb.select_set(0)
     lb.pack(padx=6, pady=(0, 6), fill="both", expand=True)
     listboxes.append(lb)
 
