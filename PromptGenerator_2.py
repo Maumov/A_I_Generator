@@ -3,9 +3,9 @@ from itertools import product
 import csv
 import json
 
-STRINGS_FILE = "prompt_config.txt"
-SETTINGS_FILE = "prompt_settings.txt"
-OUTPUT_FILE = "new_prompts2.json"
+STRINGS_FILE = "prompt_config.txt" # CSV-style: Name="opt1","opt2","opt, with comma"  
+SETTINGS_FILE = "prompt_settings.txt" # key=value lines (supports ints/floats/strings) 
+OUTPUT_FILE = "prompts.json"
 
 # --- Load named sets of strings from CSV-style txt ---
 def load_string_sets(filename):
@@ -71,16 +71,20 @@ def save_to_json():
         output_box.insert(tk.END, "\n⚠️ No combinations to save. Generate first.\n")
         return
 
-    prompts = [{"prompt": ",".join(combo)} for combo in current_combos]
+    settings_copy = extra_settings.copy()
+    prompts_list = []
 
-    output_data = {"prompts": prompts}
-    # Merge extra settings into JSON root
-    output_data.update(extra_settings)
+    for combo in current_combos:
+        prompt_obj = {"prompt":",".join(combo)}
+        prompt_obj.update(settings_copy)
+        prompts_list.append(prompt_obj)
+        
+    output_data = {"prompts": prompts_list}
 
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         json.dump(output_data, f, indent=2, ensure_ascii=False)
 
-    output_box.insert(tk.END, f"\n✅ Saved {len(prompts)} prompts with settings to {OUTPUT_FILE}\n")
+    output_box.insert(tk.END, f"\n✅ Saved {len(prompts_list)} prompts with settings to {OUTPUT_FILE}\n")
 
 def refresh_settings():
     global extra_settings
@@ -90,20 +94,58 @@ def refresh_settings():
 # --- GUI Setup ---
 root = tk.Tk()
 root.title("Multi-List String Selector with Settings")
-root.geometry("750x550")
+root.geometry("1250x750")
 
-frame = tk.Frame(root)
-frame.pack(padx=10, pady=10)
+# Create a frame for the category selection
+#category_frame = tk.Frame(root)
+#category_frame.pack(padx=10, pady=10, fill="both", expand=True)
 
-for idx, (set_name, items) in enumerate(string_sets):
-    label = tk.Label(frame, text=set_name, font=("Arial", 10, "bold"))
-    label.grid(row=0, column=idx, padx=5, pady=5)
+##listboxes.clear()
+##max_columns = 3  # number of columns before wrapping to next row
+##
+##for i, (set_name, items) in enumerate(string_sets):
+##    row = i // max_columns
+##    col = i % max_columns
+##
+##    group = tk.Frame(category_frame, borderwidth=2, relief="groove")
+##    group.grid(row=row, column=col, padx=8, pady=8, sticky="n")
+##
+##    label = tk.Label(group, text=set_name, font=("Arial", 10, "bold"))
+##    label.pack(padx=6, pady=(6, 4))
+##
+##    lb = tk.Listbox(group, selectmode=tk.MULTIPLE, height=8, exportselection=False)
+##    for item in items:
+##        lb.insert(tk.END, item)
+##    lb.pack(padx=6, pady=(0, 6), fill="both", expand=True)
+##    listboxes.append(lb)
+##
 
-    listbox = tk.Listbox(frame, selectmode=tk.MULTIPLE, height=6, exportselection=False)
+# Category grid frame (first 7 in top row, rest in second row)
+category_frame = tk.Frame(root)
+category_frame.pack(padx=10, pady=10, fill="both", expand=True)
+
+listboxes.clear()
+FIRST_ROW_COUNT = 7  # <-- change this to how many items you want in the first row
+
+for i, (set_name, items) in enumerate(string_sets):
+    if i < FIRST_ROW_COUNT:
+        row = 0
+        col = i
+    else:
+        row = 1
+        col = i - FIRST_ROW_COUNT
+
+    group = tk.Frame(category_frame, borderwidth=2, relief="groove")
+    group.grid(row=row, column=col, padx=8, pady=8, sticky="n")
+
+    label = tk.Label(group, text=set_name, font=("Arial", 10, "bold"))
+    label.pack(padx=6, pady=(6, 4))
+
+    lb = tk.Listbox(group, selectmode=tk.MULTIPLE, height=8, exportselection=False)
     for item in items:
-        listbox.insert(tk.END, item)
-    listbox.grid(row=1, column=idx, padx=5, pady=5)
-    listboxes.append(listbox)
+        lb.insert(tk.END, item)
+    lb.pack(padx=6, pady=(0, 6), fill="both", expand=True)
+    listboxes.append(lb)
 
 btn_frame = tk.Frame(root)
 btn_frame.pack(pady=10)
