@@ -1,0 +1,5 @@
+faceposes ="smiling","subtle smile","neutral expression","soft smile","slight smirk","serious expression","playful expression","relaxed face",
+poses ="selfie, looking at camera","front view, facing camera, looking at viewer","side profile, profile view, looking to the left","three-quarter view, looking slightly to the left","low angle view, looking down at camera","from above, looking up","looking back,over shoulder, turned head, looking at viewer, back view, head turned, profile with gaze at viewer""mirror selfie, holding phone","candid selfie, looking away","bathroom mirror selfie","outdoor selfie, holding drink",
+clothing = "casual t-shirt and jeans","gym outfit, sports bra and leggings","elegant dress, evening style","street style outfit, jacket and sneakers","home outfit, comfy hoodie","tank top and yoga pants","pajamas",
+backgrounds ="indoors, cozy lighting","modern bathroom","sunny outdoor street","bedroom with soft lighting","gym interior",
+lighting = "natural daylight","warm evening light","soft diffuse light","harsh overhead light","golden hour sunlight",

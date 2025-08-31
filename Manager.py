@@ -3,7 +3,7 @@ import subprocess
 import sys
 import os
 
-CONFIG_FILE = "config.txt"
+CONFIG_FILE = "manager_config_file.txt"
 
 def load_config(filename):
     settings = {}

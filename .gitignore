@@ -1,4 +1,6 @@
 Prompts
 Output
 prompts.json
-config.txt
+manager_config_file.txt
+prompt_settings.txt
+prompt_config.txt
