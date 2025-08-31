@@ -43,15 +43,12 @@ if "a1111LauncherScript" in settings:
     btn1.pack(pady=5, fill="x")
     
 if "jsonGeneratorScript" in settings:
-    btn2 = tk.Button(frame, text="Generate prompts", command=lambda: run_python(settings["jsonGeneratorScript"]))
+    btn2 = tk.Button(frame, text="Generate prompts", command=lambda: run_script(settings["jsonGeneratorScript"]))
     btn2.pack(pady=5, fill="x")
 
 if "imageGeneratorScript" in settings:
-    btn3 = tk.Button(frame, text="Generate Images", command=lambda: run_python(settings["imageGeneratorScript"]))
+    btn3 = tk.Button(frame, text="Generate Images", command=lambda: run_script(settings["imageGeneratorScript"]))
     btn3.pack(pady=5, fill="x")
-
-
-
 
 
 # Run the GUI loop
